@@ -1,0 +1,21 @@
+# ninja log v6
+10	176	8138430932469221	glad-populate-prefix/src/glad-populate-stamp/glad-populate-mkdir	a8355ea57693955a
+10	176	8138430932469221	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-mkdir	a8355ea57693955a
+178	3604	8138430966784530	glad-populate-prefix/src/glad-populate-stamp/glad-populate-download	4490a40c656ff12a
+178	3604	8138430966784530	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-download	4490a40c656ff12a
+3605	6009	8138430966885704	glad-populate-prefix/src/glad-populate-stamp/glad-populate-update	d76a972724a54c88
+3605	6009	8138430966885704	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-update	d76a972724a54c88
+6049	6188	8138430992554664	glad-populate-prefix/src/glad-populate-stamp/glad-populate-patch	fcfa5990bbcdab30
+6049	6188	8138430992554664	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-patch	fcfa5990bbcdab30
+6188	6310	8138430993823080	glad-populate-prefix/src/glad-populate-stamp/glad-populate-configure	709dc70fc8c5958f
+6188	6310	8138430993823080	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-configure	709dc70fc8c5958f
+6310	6419	8138430994902609	glad-populate-prefix/src/glad-populate-stamp/glad-populate-build	b7f66ac235118e70
+6310	6419	8138430994902609	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-build	b7f66ac235118e70
+6419	6520	8138430995938798	glad-populate-prefix/src/glad-populate-stamp/glad-populate-install	b0fa3d552641f353
+6419	6520	8138430995938798	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-install	b0fa3d552641f353
+6521	6624	8138430996964213	glad-populate-prefix/src/glad-populate-stamp/glad-populate-test	7c9a287fd8637d18
+6521	6624	8138430996964213	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-test	7c9a287fd8637d18
+6625	6825	8138430998968547	CMakeFiles/glad-populate-complete	92335e99e9a0c246
+6625	6825	8138430998968547	glad-populate-prefix/src/glad-populate-stamp/glad-populate-done	92335e99e9a0c246
+6625	6825	8138430998968547	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/CMakeFiles/glad-populate-complete	92335e99e9a0c246
+6625	6825	8138430998968547	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-done	92335e99e9a0c246

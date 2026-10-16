@@ -1,0 +1,21 @@
+# ninja log v6
+10	174	8138430121290921	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-mkdir	f9168eec4f86b2f6
+10	174	8138430121290921	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-mkdir	f9168eec4f86b2f6
+176	43545	8138430555050245	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-download	d236cd5e26cedc17
+176	43545	8138430555050245	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-download	d236cd5e26cedc17
+43545	43892	8138430555159810	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-update	6ba2bb5bb6c38567
+43545	43892	8138430555159810	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-update	6ba2bb5bb6c38567
+43893	44026	8138430559854436	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-patch	b3c8010d30ed0ffb
+43893	44026	8138430559854436	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-patch	b3c8010d30ed0ffb
+44026	44183	8138430561386483	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-configure	a53efe3e1a5bdc9
+44026	44183	8138430561386483	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-configure	a53efe3e1a5bdc9
+44184	44314	8138430562757054	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-build	9cd7da9eb0c93a4d
+44184	44314	8138430562757054	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-build	9cd7da9eb0c93a4d
+44315	44427	8138430563821075	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-install	ed0c5b0ccd8e62c7
+44315	44427	8138430563821075	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-install	ed0c5b0ccd8e62c7
+44427	44526	8138430564883862	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-test	353e1249fe895ec2
+44427	44526	8138430564883862	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-test	353e1249fe895ec2
+44526	44673	8138430566249222	CMakeFiles/glfw-populate-complete	9ea8027392069dc5
+44526	44673	8138430566249222	glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-done	9ea8027392069dc5
+44526	44673	8138430566249222	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/CMakeFiles/glfw-populate-complete	9ea8027392069dc5
+44526	44673	8138430566249222	C:/Users/Asus/Downloads/PC3D_project/PC3D/out/build/x64-Debug/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-done	9ea8027392069dc5
