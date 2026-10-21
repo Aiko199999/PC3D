@@ -1,4 +1,4 @@
-// hierarchical scene graph + exploded-view logic
+// hierarchical scene graph + exploded-view logic(Assylzhan)
 #pragma once
 #include "mesh.h"
 #include "shader.h"

@@ -1,4 +1,4 @@
-//orbit camera + keyframe cinematic tour (Baizhiii)
+//orbit camera + keyframe cinematic tour (Baizhana)
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

@@ -1,4 +1,4 @@
-//GLSL shader compiling helper
+//GLSL shader compiling helper(Aiym)
 #pragma once
 #include <glad/glad.h>
 #include <glm/glm.hpp>
