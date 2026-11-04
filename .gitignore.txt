@@ -1,0 +1,15 @@
+# Visual Studio temporary & cache files
+.vs/
+*.ipch
+*.db
+*.opendb
+*.user
+*.suo
+DocumentLayout.backup.json
+
+# Build outputs
+x64/
+Debug/
+Release/
+bin/
+obj/
