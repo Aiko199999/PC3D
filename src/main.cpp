@@ -123,6 +123,10 @@ int main(int argc, char** argv) {
 
     printHelp();
 
+    double prev = glfwGetTime();
+    double titleTimer = 0.0;
+    int frames = 0;
+    int shotFrames = 0;
 
     while (!glfwWindowShouldClose(window)) {
         double now = glfwGetTime();
