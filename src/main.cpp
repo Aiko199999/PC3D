@@ -14,8 +14,23 @@
 
 #include "camera.h"
 #include "mesh.h"
+#include "pc_model.h"
 #include "scene.h"
 #include "shader.h"
+
+namespace fs = std::filesystem;
+
+struct App {
+    OrbitCamera orbit;
+    CameraTour tour;
+    Scene scene;
+    bool explodeTarget = false;
+    bool lightOrbit = true;
+    int selected = -1;
+    double lastX = 0, lastY = 0;
+    bool leftDown = false, rightDown = false;
+    int fbW = 1280, fbH = 720;
+};
 
 static void printHelp() {
     std::cout << "\PC3D controls\n"
@@ -30,11 +45,46 @@ static void printHelp() {
                  "  ESC               quit\n\n";
 }
 
+static std::string findShaderDir(const char* argv0) {
+    std::vector<fs::path> candidates;
+    try { candidates.push_back(fs::absolute(argv0).parent_path() / "shaders"); }
+    catch (...) {}
+    candidates.push_back(fs::current_path() / "shaders");
+#ifdef PC3D_SHADER_SRC_DIR
+    candidates.push_back(PC3D_SHADER_SRC_DIR);
+#endif
+    for (auto& c : candidates)
+        if (fs::exists(c / "phong.vert")) return c.string();
+    std::cerr << "[PC3D] Could not find the shaders/ folder!\n";
+    return "shaders";
+}
+
+static void saveScreenshot(const std::string& path, int w, int h) {
+    std::vector<unsigned char> px(static_cast<size_t>(w) * h * 3);
+    glPixelStorei(GL_PACK_ALIGNMENT, 1);
+    glReadPixels(0, 0, w, h, GL_RGB, GL_UNSIGNED_BYTE, px.data());
+    FILE* f = std::fopen(path.c_str(), "wb");
+    if (!f) { std::cerr << "Cannot write " << path << "\n"; return; }
+    std::fprintf(f, "P6\n%d %d\n255\n", w, h);
+    for (int y = h - 1; y >= 0; --y) std::fwrite(&px[static_cast<size_t>(y) * w * 3], 1, static_cast<size_t>(w) * 3, f);
+    std::fclose(f);
+    std::cout << "Saved " << path << "\n";
+}
 
 //callbacks
 //static void...
 
 int main(int argc, char** argv) {
+    std::string shotPath;
+    bool shotExplode = false;
+    float shotYaw = -999.0f;
+    for (int i = 1; i < argc; ++i) {
+        std::string a = argv[i];
+        if (a == "--shot" && i + 1 < argc) shotPath = argv[++i];
+        else if (a == "--explode") shotExplode = true;
+        else if (a == "--yaw" && i + 1 < argc) shotYaw = std::stof(argv[++i]);
+    }
+
     if (!glfwInit()) { std::cerr << "Failed to init GLFW\n"; return 1; }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -48,6 +98,12 @@ int main(int argc, char** argv) {
     if (!window) { std::cerr << "Failed to create window (OpenGL 3.3 required)\n"; glfwTerminate(); return 1; }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
+
+    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
+        std::cerr << "Failed to load OpenGL functions\n"; return 1;
+    }
+    std::cout << "OpenGL: " << glGetString(GL_VERSION) << "\nGPU:    " << glGetString(GL_RENDERER) << "\n";
+
 
     printHelp();
 
