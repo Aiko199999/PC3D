@@ -104,6 +104,22 @@ int main(int argc, char** argv) {
     }
     std::cout << "OpenGL: " << glGetString(GL_VERSION) << "\nGPU:    " << glGetString(GL_RENDERER) << "\n";
 
+    App app;
+    glfwSetWindowUserPointer(window, &app);
+    glfwSetFramebufferSizeCallback(window, onResize);
+    glfwSetMouseButtonCallback(window, onMouseButton);
+    glfwSetCursorPosCallback(window, onCursor);
+    glfwSetScrollCallback(window, onScroll);
+    glfwSetKeyCallback(window, onKey);
+    glfwGetFramebufferSize(window, &app.fbW, &app.fbH);
+    glViewport(0, 0, app.fbW, app.fbH);
+
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glEnable(GL_MULTISAMPLE);
+
+    //GL objects...
 
     printHelp();
 
