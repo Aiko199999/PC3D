@@ -4,8 +4,6 @@
 #include <glm/glm.hpp>
 #include <cmath>
 #include <vector>
-
-Айко💖💖💖:
 class Mesh {
 public:
 Mesh(const std::vector<float>& vertices,
