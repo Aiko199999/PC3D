@@ -72,7 +72,53 @@ static void saveScreenshot(const std::string& path, int w, int h) {
 }
 
 //callbacks
-//static void...
+static void onResize(GLFWwindow* w, int width, int height) {
+auto* app = static_cast<App*>(glfwGetWindowUserPointer(w));
+app->fbW = std::max(width, 1); app->fbH = std::max(height, 1);
+glViewport(0, 0, width, height);
+}
+static void onMouseButton(GLFWwindow* w, int button, int action, int) {
+auto* app = static_cast<App*>(glfwGetWindowUserPointer(w));
+bool down = action == GLFW_PRESS;
+if (button == GLFW_MOUSE_BUTTON_LEFT) app->leftDown = down;
+if (button == GLFW_MOUSE_BUTTON_RIGHT) app->rightDown = down;
+glfwGetCursorPos(w, &app->lastX, &app->lastY);
+}
+static void onCursor(GLFWwindow* w, double x, double y) {
+auto* app = static_cast<App*>(glfwGetWindowUserPointer(w));
+float dx = static_cast<float>(x - app->lastX), dy = static_cast<float>(y - app->lastY);
+app->lastX = x; app->lastY = y;
+if (app->tour.active) return; 
+if (app->leftDown) app->orbit.rotate(dx, dy);
+if (app->rightDown) app->orbit.pan(dx, dy);
+}
+static void onScroll(GLFWwindow* w, double, double yoff) {
+auto* app = static_cast<App*>(glfwGetWindowUserPointer(w));
+if (!app->tour.active) app->orbit.zoom(static_cast<float>(yoff));
+}
+static void onKey(GLFWwindow* w, int key, int, int action, int mods) {
+if (action != GLFW_PRESS) return;
+auto* app = static_cast<App*>(glfwGetWindowUserPointer(w));
+switch (key) {
+case GLFW_KEY_ESCAPE: glfwSetWindowShouldClose(w, GLFW_TRUE); break;
+case GLFW_KEY_E: app->explodeTarget = !app->explodeTarget; break;
+case GLFW_KEY_L: app->lightOrbit = !app->lightOrbit; break;
+case GLFW_KEY_R: app->orbit = OrbitCamera(); app->tour.stop(); break;
+case GLFW_KEY_T:
+if (app->tour.active) app->tour.stop();
+else { app->tour.start(); app->selected = -1; }
+break;
+case GLFW_KEY_N: {
+int n = static_cast<int>(app->scene.inspectable.size());
+if (n == 0) break;
+if (mods & GLFW_MOD_SHIFT) app->selected = (app->selected <= 0) ? n - 1 : app->selected - 1;
+else app->selected = (app->selected + 1) % n;
+std::cout << "Selected: " << app->scene.inspectable[app->selected]->name << "\n";
+break;
+}
+default: break;
+}
+}
 
 int main(int argc, char** argv) {
     std::string shotPath;
@@ -127,12 +173,73 @@ int main(int argc, char** argv) {
     double titleTimer = 0.0;
     int frames = 0;
     int shotFrames = 0;
+while (!glfwWindowShouldClose(window)) {
+double now = glfwGetTime();
+float dt = static_cast<float>(now - prev);
+prev = now;
+glfwPollEvents();
 
-    while (!glfwWindowShouldClose(window)) {
-        double now = glfwGetTime();
-        prev = now;
-        glfwPollEvents();
-    }
+//animation state
+if (app.tour.active) {
+CameraPose pose;
+if (app.tour.update(dt, pose)) {
+float t = app.tour.time;
+app.explodeTarget = (t > 9.0f && t < 20.0f);
+app.orbit.setFromPose(pose);
+} else {
+app.explodeTarget = false;
+}
+}
+float step = dt / 2.8f;
+if (shotPath.empty()) {
+if (app.explodeTarget) app.scene.explodeFactor = std::min(1.0f, app.scene.explodeFactor + step);
+else app.scene.explodeFactor = std::max(0.0f, app.scene.explodeFactor - step);
+}
+app.scene.update(dt);
+
+// render
+glClearColor(0.05f, 0.06f, 0.10f, 1.0f);
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+float aspect = static_cast<float>(app.fbW) / static_cast<float>(app.fbH);
+glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 200.0f);
+glm::vec3 camPos = app.orbit.position();
+glm::mat4 view = glm::lookAt(camPos, app.orbit.target, glm::vec3(0, 1, 0));
+
+float lt = app.lightOrbit ? static_cast<float>(now) * 0.4f : 0.8f;
+glm::vec3 lightPos(7.0f * std::cos(lt), 7.5f, 7.0f * std::sin(lt));
+
+shader.use();
+shader.setMat4("uView", view);
+shader.setMat4("uProj", proj);
+shader.setVec3("uViewPos", camPos);
+shader.setVec3("uLightPos", lightPos);
+shader.setVec3("uLightColor", glm::vec3(1.25f, 1.2f, 1.1f));
+
+const Node* hl = (app.selected >= 0) ? app.scene.inspectable[app.selected] : nullptr;
+float pulse = 0.5f + 0.5f * std::sin(static_cast<float>(now) * 4.0f);
+app.scene.draw(shader, hl, pulse);
+
+if (!shotPath.empty() && ++shotFrames == 3) {
+saveScreenshot(shotPath, app.fbW, app.fbH);
+break;
+}
+
+glfwSwapBuffers(window);
+
+// FPS in the title
+++frames; titleTimer += dt;
+if (titleTimer >= 0.5) {
+char buf[160];
+std::snprintf(buf, sizeof(buf), "PC3D | %.0f FPS | explode %.0f%%%s%s", frames / titleTimer,
+app.scene.explodeFactor * 100.0f, app.tour.active ? " | TOUR" : "",
+hl ? (" | " + hl->name).c_str() : "");
+glfwSetWindowTitle(window, buf);
+frames = 0; titleTimer = 0.0;
+}
+}
+
+}
 
     glfwDestroyWindow(window);
     glfwTerminate();
