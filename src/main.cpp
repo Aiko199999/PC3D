@@ -70,6 +70,19 @@ static void saveScreenshot(const std::string& path, int w, int h) {
     std::fclose(f);
     std::cout << "Saved " << path << "\n";
 }
+static void buildTour(CameraTour& t) {
+    t.keys = {
+        {{ 9.0f, 3.5f,  9.0f}, {0, 2.4f, 0}},   // 3/4 exterior view
+        {{ 0.0f, 3.0f, 12.0f}, {0, 2.4f, 0}},   // front
+        {{-9.0f, 4.0f,  7.0f}, {0, 2.4f, 0}},   // left side
+        {{-8.0f, 6.0f, -8.0f}, {0, 2.8f, 0}},   // back, high
+        {{ 8.0f, 3.0f, -6.0f}, {0, 2.4f, 0}},   // back right
+        {{ 7.0f, 2.2f,  3.0f}, {-0.8f, 2.3f, 0}}, // glass side, close to the GPU/CPU
+        {{ 4.5f, 2.6f,  2.0f}, {-0.8f, 2.3f, 0}}, // moves "inside" through exploded glass
+        {{ 9.0f, 5.5f,  9.0f}, {0, 2.4f, 0}},   // pull back
+    };
+    t.segmentDuration = 3.2f;
+}
 
 //callbacks
 static void onResize(GLFWwindow* w, int width, int height) {
