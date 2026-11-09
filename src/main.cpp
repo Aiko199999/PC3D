@@ -178,7 +178,16 @@ int main(int argc, char** argv) {
     glCullFace(GL_BACK);
     glEnable(GL_MULTISAMPLE);
 
-    //GL objects...
+    {
+        std::string shaderDir = findShaderDir(argv[0]);
+        Shader shader(shaderDir + "/phong.vert", shaderDir + "/phong.frag");
+
+        std::unique_ptr<Mesh> box(Mesh::makeBox());
+        std::unique_ptr<Mesh> cyl(Mesh::makeCylinder(32));
+        pcmodel::build(app.scene, box.get(), cyl.get());
+        buildTour(app.tour);
+        if (shotYaw > -900.0f) app.orbit.yaw = glm::radians(shotYaw);
+        if (shotExplode) { app.explodeTarget = true; app.scene.explodeFactor = 1.0f; }
 
     printHelp();
 
