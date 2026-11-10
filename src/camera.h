@@ -20,8 +20,8 @@ public:
 
     glm::vec3 position() const {
         return target + radius * glm::vec3(std::cos(pitch) * std::sin(yaw),
-            std::sin(pitch),
-            std::cos(pitch) * std::cos(yaw));
+                                           std::sin(pitch),
+                                           std::cos(pitch) * std::cos(yaw));
     }
     void rotate(float dx, float dy) {
         yaw -= dx * 0.005f;

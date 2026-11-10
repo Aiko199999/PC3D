@@ -14,14 +14,14 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 if(UNIX AND NOT APPLE)
-  set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "" FORCE)
+  set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "" FORCE)  # use X11 (works on every Linux, incl. WSL)
 endif()
 FetchContent_Declare(glfw GIT_REPOSITORY https://github.com/glfw/glfw.git GIT_TAG 3.4)
 
 # GLM (math)
 FetchContent_Declare(glm GIT_REPOSITORY https://github.com/g-truc/glm.git GIT_TAG 1.0.1)
 
-# GLAD
+# GLAD (OpenGL loader, pre-generated, no Python needed)
 FetchContent_Declare(glad GIT_REPOSITORY https://github.com/libigl/libigl-glad.git GIT_TAG master)
 
 FetchContent_MakeAvailable(glfw glm glad)
@@ -29,8 +29,10 @@ FetchContent_MakeAvailable(glfw glm glad)
 add_executable(PC3D src/main.cpp)
 target_link_libraries(PC3D PRIVATE glfw glm::glm glad)
 
+# Copy shaders next to the executable so it runs from anywhere
 add_custom_command(TARGET PC3D POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
           ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:PC3D>/shaders)
 
+# Fallback: lets the program find shaders even if started from another folder
 target_compile_definitions(PC3D PRIVATE PC3D_SHADER_SRC_DIR="${CMAKE_SOURCE_DIR}/shaders")
