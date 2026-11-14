@@ -45,6 +45,6 @@ src/shader.h                       Aiym      – shader compile/link + uniforms
 src/camera.h                       Baizhana  – orbit camera, keyframe tour (Catmull-Rom)
 src/mesh.h                         Assylzhan – box/cylinder meshes (loader comes next)
 src/scene.h                        Assylzhan – scene graph, exploded-view logic
-src/pc_model.h                     Baizhana & Aiym - PC mdoel
+src/pc_model.h                     Baizhana & Aiym - PC model
 src/main.cpp                       all       – window, input, render loop
 ```
